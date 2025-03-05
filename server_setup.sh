@@ -1,25 +1,27 @@
 #!/bin/bash
 # setup_server.sh
-# This script updates packages, creates a non-root user 'admin', hardens SSH,
-# and configures the UFW firewall.
-# Run as root.
+# This script updates packages, creates any user, hardens SSH and configures the UFW firewall.
+# Run as root. chmod +x setup_server.sh
 
 set -e  # Exit on any error
 
 echo "=== Updating packages ==="
 apt update && apt upgrade -y
 
-echo "=== Creating non-root user 'admin' ==="
-# Create user 'admin' without a password (password login will be disabled)
-adduser --disabled-password --gecos "" admin
-# Add 'admin' to the sudo group
-usermod -aG sudo admin
+# Ask the user if they want to create a new user
+while true; do
+  read -p "Do you want to create a new user? (Y/n)" CREATE_USER
 
-echo "=== Configuring passwordless sudo for 'admin' ==="
-# Create a sudoers file for admin so that no password is required for sudo commands.
-echo "admin ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/admin
-chmod 0440 /etc/sudoers.d/admin
+  if [[ "$CREATE_USER" =~ ^([yY])?$ ]]; then
+    ./create_user.sh
+  else
+    break
+  fi
+done
 
+# . /path/to/another_script.sh
+
+echo "Main script continues..."
 
 echo "=== Configuring SSH for key-based authentication only ==="
 # Backup current SSH configuration file
