@@ -51,8 +51,3 @@ ufw limit ssh
 ufw --force enable
 
 echo "=== Setup complete ==="
-echo "IMPORTANT: On your client machine, generate an SSH key pair (if you haven't already) with:"
-echo "    ssh-keygen -t rsa -b 4096"
-echo "Then copy your public key to the server using one of these commands:"
-echo "    ssh-copy-id -i ~/.ssh/your_key.pub admin@YOUR_SERVER_IP"
-echo "Replace 'your_key.pub' with the name of your public key file and YOUR_SERVER_IP with your server's IP."
