@@ -13,6 +13,7 @@ while true; do
   read -p "Do you want to create a new user? (Y/n)" CREATE_USER
 
   if [[ "$CREATE_USER" =~ ^([yY])?$ ]]; then
+    chmod +x create_user.sh
     ./create_user.sh
   else
     break
