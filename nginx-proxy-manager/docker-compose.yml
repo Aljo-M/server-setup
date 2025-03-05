@@ -8,7 +8,9 @@ services:
       - '80:80' # Public HTTP Port
       - '443:443' # Public HTTPS Port
       - '81:81'
-
     volumes:
       - ./data:/data
       - ./letsencrypt:/etc/letsencrypt
+    environment:
+          INITIAL_ADMIN_EMAIL: admin
+          INITIAL_ADMIN_PASSWORD: pass
