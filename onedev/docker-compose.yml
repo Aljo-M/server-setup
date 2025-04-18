@@ -1,0 +1,61 @@
+services:
+  app:
+    hostname: 'onedev'
+    image: '1dev/server:latest'
+    container_name: 'onedev-app'
+    restart: unless-stopped
+    environment:
+      - hibernate_dialect=io.onedev.server.persistence.PostgreSQLDialect
+      - hibernate_connection_driver_class=org.postgresql.Driver
+      - hibernate_connection_url=jdbc:postgresql://onedev-db:5432/onedev
+      - hibernate_connection_username=onedev_hybernate
+      - hibernate_connection_password=jv/r*449EHV%iv(Xc9dmzjam(&#M/n9b/XvstK)p
+      - initial_user=onedev_admin
+      - initial_password=&"Cv)CiJ5nmKa5uE2LpVbpK?%eh9/c7PEYkHFsTy
+      - initial_email=aljaz.workspace@mailo.com
+      - initial_server_url=https://git.nexfortlabs.com
+      - initial_ssh_root_url=ssh://git.nexfortlabs.com
+    volumes:
+      - 'onedev-app-data-vol:/opt/onedev'
+      - '/var/run/docker.sock:/var/run/docker.sock'
+    networks:
+      - 'onedev-network'
+      - nginx-proxy-manager_default
+#    ports:
+#    - '6610:6610'
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    hostname: 'postgresql'
+    image: 'postgres:latest'
+    container_name: 'onedev-db'
+    restart: 'unless-stopped'
+    networks:
+      - 'onedev-network'
+    environment:
+      - POSTGRES_USER=onedev_hybernate
+      - POSTGRES_PASSWORD=jv/r*449EHV%iv(Xc9dmzjam(&#M/n9b/XvstK)p
+      - POSTGRES_DB=onedev
+    volumes:
+      - 'onedev-db-postgresql-vol:/var/lib/postgresql'
+      - 'onedev-db-postgresql-data-vol:/var/lib/postgresql/data'
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready"]
+      interval: 1m
+      timeout: 5s
+      retries: 5
+
+volumes:
+  onedev-app-data-vol:
+    name: 'onedev-app-data-vol'
+  onedev-db-postgresql-vol:
+    name: 'onedev-db-postgresql-vol'
+  onedev-db-postgresql-data-vol:
+    name: 'onedev-db-postgresql-data-vol'
+
+networks:
+  onedev-network:
+    name: 'onedev-network'
+  nginx-proxy-manager_default:
+    external: true
