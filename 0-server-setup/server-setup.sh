@@ -27,7 +27,7 @@ fi
 
 # === 3. SYSTEM UPDATES & UNATTENDED UPGRADES ===
 log "INFO" "Starting full system upgrade"
-bash "$SCRIPT_DIR/hardening/update-and.upgrade.sh" || handle_error $LINENO
+bash "$SCRIPT_DIR/hardening/update-and-upgrade.sh" || handle_error $LINENO
 
 # === CONTAINER RUNTIME & ORCHESTRATION ===
 log "INFO" "Installing Docker & Kubernetes"
