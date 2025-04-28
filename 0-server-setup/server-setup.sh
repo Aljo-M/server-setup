@@ -31,7 +31,7 @@ bash "$SCRIPT_DIR/hardening/update-and-upgrade.sh" || handle_error $LINENO
 
 # === CONTAINER RUNTIME & ORCHESTRATION ===
 log "INFO" "Installing Docker & Kubernetes"
-bash "/install-kubernetes-docker.sh" || handle_error $LINENO
+bash "$SCRIPT_DIR/install-kubernetes-docker.sh" || handle_error $LINENO
 
 # === 4. CORE SECURITY SERVICES ===
 bash "$SCRIPT_DIR/hardening/install-security-services.sh" || handle_error $LINENO
