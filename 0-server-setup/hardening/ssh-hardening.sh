@@ -7,8 +7,8 @@ set -euo pipefail
 # 1. Determine script directory & load helpers
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 source "$SCRIPT_DIR/functions/log-utils.sh"       # defines log(), handle_error()
-source "$SCRIPT_DIR/config/variable_loader.sh" "$@"
-source "$SCRIPT_DIR/functions/ask_yes_no.sh"
+source "$SCRIPT_DIR/config/variable-loader.sh" "$@"
+source "$SCRIPT_DIR/functions/ask-yes-no.sh"
 
 # 2. Register error trap (after handle_error is defined)
 trap 'handle_error $LINENO' ERR

@@ -1,25 +1,19 @@
 #!/usr/bin/env bash
-
-# Source log utils (adjust path as necessary)
-source /0-server-setup/functions/log_utils.sh
-
 # ufw-hardening.sh: Harden the UFW firewall with improved checks and user feedback
 # Usage: sudo ./ufw-hardening.sh
 # Ensure UFW_PORTS and SSH_PORT are set if defaults (80, 443 for UFW_PORTS; 22 for SSH_PORT) are not desired.
 
 set -euo pipefail
 
+# 1. Determine script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# 2. Load logging & error‐handling
+source "$SCRIPT_DIR/../functions/log-utils.sh"
+
 # Define default variables if not set
 SSH_PORT="${SSH_PORT:-22}"              # Default SSH port
 UFW_PORTS=("${UFW_PORTS[@]:-80 443}")   # Default ports to allow (e.g., HTTP, HTTPS)
-
-# Function to handle errors with line numbers
-handle_error() {
-  local exit_code=$?
-  local line_no=$1
-  log "ERROR" "Line $line_no: Command failed with exit code $exit_code"
-  exit $exit_code
-}
 
 # Set trap for error handling
 trap 'handle_error $LINENO' ERR

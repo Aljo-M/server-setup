@@ -5,9 +5,9 @@
 set -euo pipefail
 
 # --- 1. Setup & Helpers ---
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-source "$SCRIPT_DIR/functions/log-utils.sh"    # defines log() & handle_error()
-source "$SCRIPT_DIR/functions/ask_yes_no.sh"   # defines ask_yes_no()
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../functions/log-utils.sh"    # defines log() & handle_error()
+source "$SCRIPT_DIR/../functions/ask-yes-no.sh"   # defines ask_yes_no()
 
 trap 'handle_error $LINENO' ERR
 

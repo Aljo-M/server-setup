@@ -5,8 +5,8 @@
 set -euo pipefail
 
 # --- 1. Determine script directory & load helpers ---
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-source "$SCRIPT_DIR/functions/log-utils.sh"   # defines log(), handle_error()
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/../functions/log-utils.sh"   # defines log(), handle_error()
 
 trap 'handle_error $LINENO' ERR
 

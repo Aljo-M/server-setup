@@ -2,8 +2,11 @@
 
 set -euo pipefail
 
-# --- Load helpers ---
-source /0-server-setup/functions/log_utils.sh
+# 1. Determine script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# 2. Load logging & error‐handling
+source "$SCRIPT_DIR/../functions/log-utils.sh"
 
 log "INFO" "[Filesystem Hardening] Starting..."
 

@@ -4,10 +4,13 @@
 
 set -euo pipefail
 
-# Load log utilities if available (optional)
-[[ -f /0-server-setup/functions/log_utils.sh ]] && source /0-server-setup/functions/log_utils.sh
+# 1. Determine script directory
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-log() { echo "[$(date '+%Y-%m-%d %H:%M:%S')] $1"; }
+# 2. Load logging & error‐handling
+source "$SCRIPT_DIR/../functions/log-utils.sh"
+
+trap 'handle_error $LINENO' ERR
 
 log "INFO" "=== [Audit & Logging Hardening] Starting ==="
 

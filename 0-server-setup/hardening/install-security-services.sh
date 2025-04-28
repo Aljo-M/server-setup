@@ -8,7 +8,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 2. Load logging & error‐handling
-source "$SCRIPT_DIR/functions/log-utils.sh"
+source "$SCRIPT_DIR/../functions/log-utils.sh"
 trap 'handle_error $LINENO' ERR
 
 # === CONFIGURATION ===
