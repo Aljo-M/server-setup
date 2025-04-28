@@ -40,27 +40,26 @@ install_kubernetes() {
     log "INFO" "Kubernetes is already installed"
     return
   fi
+
   log "INFO" "=== Installing Kubernetes (kubeadm, kubelet, kubectl) ==="
-  
-  K8S_VERSION="${K8S_VERSION:-}"
 
   sudo mkdir -p /etc/apt/keyrings
 
-  if [[ -z "$K8S_VERSION" ]]; then
-    log "INFO" "Adding Kubernetes repository for stable release"
-    curl -fsSL "https://pkgs.k8s.io/core:/stable:/deb/Release.key" | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-  else
-    log "INFO" "Adding Kubernetes repository for version $K8S_VERSION"
-    curl -fsSL "https://pkgs.k8s.io/core:/stable:/$K8S_VERSION/deb/Release.key" | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/$K8S_VERSION/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
-  fi
+  log "INFO" "Adding Kubernetes repository"
+
+  # Download the GPG key
+  curl -fsSL "https://pkgs.k8s.io/core/stable/deb/Release.key" | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+  # Add the Kubernetes APT repository
+  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core/stable/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
   sudo apt-get update
   sudo apt-get install -y kubelet kubeadm kubectl
   sudo apt-mark hold kubelet kubeadm kubectl
+
   log "INFO" "Kubernetes installation complete"
 }
+
 
 
 # Main execution
