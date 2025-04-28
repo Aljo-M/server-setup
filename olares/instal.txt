@@ -1,0 +1,5 @@
+https://docs.joinolares.cn/manual/tutorials/set-custom-domain.html
+
+export TERMINUS_OS_DOMAINNAME=home.xnation.net \
+  && export TERMINUS_OS_USERNAME=aleksturner92 \
+  && curl -sSfL https://olares.sh | bash -
