@@ -8,7 +8,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 # 2. Load centralized logging & error-handling (defines log(), handle_error())
-source "$SCRIPT_DIR/functions/log-utils.sh"
+source "$SCRIPT_DIR/../functions/log-utils.sh"
 
 # 3. Register ERR trap to use your handle_error()
 trap 'handle_error $LINENO' ERR
