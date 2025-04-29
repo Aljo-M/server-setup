@@ -30,7 +30,7 @@ server-setup/
 
 ### Setup Instructions
 ```bash
-apt install git
+apt install git -y
 git clone https://github.com/Aljo-M/server-setup.git
 cd server-setup
 bash 0-server-setup/server-setup.sh
