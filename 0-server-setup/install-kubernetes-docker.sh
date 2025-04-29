@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# install_docker_k8s.sh: Installs latest Docker and Kubernetes
+# install-docker-k8s.sh: Installs latest Docker and Kubernetes
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"
@@ -12,6 +12,26 @@ trap 'handle_error $LINENO' ERR
 # Function to check if a command exists
 command_exists() {
   command -v "$1" &>/dev/null
+}
+
+install_dependencies() {
+    log "INFO" "Installing dependencies"
+    
+    # Update package index
+    apt-get update -qq
+    
+    # Install prerequisites
+    apt-get install -y \
+        apt-transport-https \
+        ca-certificates \
+        curl \
+        gnupg \
+        lsb-release \
+        software-properties-common \
+        || { log "ERROR" "Failed to install prerequisites"; return 1; }
+        
+    log "INFO" "Dependencies installed successfully"
+    return 0
 }
 
 # Function to install dependencies
