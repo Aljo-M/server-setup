@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # install_docker_k8s.sh: Installs latest Docker and Kubernetes
-
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/" && pwd)"
+source "$SCRIPT_DIR/config/variable-loader.sh" "$@"
 source "$SCRIPT_DIR/functions/log-utils.sh"
 
 # Set trap for error handling
@@ -40,34 +40,29 @@ install_kubernetes() {
     log "INFO" "Kubernetes is already installed"
     return
   fi
-
-  log "INFO" "=== Installing Kubernetes (kubeadm, kubelet, kubectl) ==="
-
-    # 1. Dynamically fetch latest stable tag
-    K8S_VERSION="$(curl -L -s https://dl.k8s.io/release/stable.txt)"  # :contentReference[oaicite:8]{index=8}
-
-    # 2. Prepare keyrings and avoid prompts
-    sudo mkdir -p /etc/apt/keyrings
-    sudo rm -f /etc/apt/keyrings/kubernetes-apt-keyring.gpg
-
-    # 3. Download & install GPG key non-interactively
-    curl -fsSL "https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/Release.key" \
-    | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg  # :contentReference[oaicite:9]{index=9}
-
-    # 4. Add the versioned APT source
-    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] \
+  
+  log "INFO" "=== Installing Kubernetes ${K8S_VERSION} (kubeadm, kubelet, kubectl) ==="
+  
+  # Add Kubernetes apt repository - Now using the K8S_VERSION variable
+  sudo mkdir -p /etc/apt/keyrings
+  sudo rm -f /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  
+  # Download & install GPG key non-interactively using the specified K8S_VERSION
+  curl -fsSL "https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/Release.key" \
+    | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  
+  # Add the versioned APT source
+  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] \
     https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/ /" \
     | sudo tee /etc/apt/sources.list.d/kubernetes.list
-
-    # 5. Install & pin packages
-    sudo apt-get update
-    sudo apt-get install -y kubelet kubeadm kubectl
-    sudo apt-mark hold kubelet kubeadm kubectl
-
-  log "INFO" "Kubernetes installation complete"
+  
+  # Install & pin packages
+  sudo apt-get update
+  sudo apt-get install -y kubelet kubeadm kubectl
+  sudo apt-mark hold kubelet kubeadm kubectl
+  
+  log "INFO" "Kubernetes ${K8S_VERSION} installation complete"
 }
-
-
 
 # Main execution
 install_dependencies

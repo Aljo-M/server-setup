@@ -3,6 +3,8 @@
 
 set -euo pipefail
 
+log "INFO" "Server setup started"
+
 # === LOAD CONFIGURATION & UTILITIES ===
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # Source your centralized log‐utils (defines log() and handle_error())
