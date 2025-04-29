@@ -43,19 +43,26 @@ install_kubernetes() {
 
   log "INFO" "=== Installing Kubernetes (kubeadm, kubelet, kubectl) ==="
 
-  sudo mkdir -p /etc/apt/keyrings
+    # 1. Dynamically fetch latest stable tag
+    K8S_VERSION="$(curl -L -s https://dl.k8s.io/release/stable.txt)"  # :contentReference[oaicite:8]{index=8}
 
-  log "INFO" "Adding Kubernetes repository"
+    # 2. Prepare keyrings and avoid prompts
+    sudo mkdir -p /etc/apt/keyrings
+    sudo rm -f /etc/apt/keyrings/kubernetes-apt-keyring.gpg
 
-  # Download the GPG key
-  curl -fsSL "https://pkgs.k8s.io/core/stable/deb/Release.key" | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+    # 3. Download & install GPG key non-interactively
+    curl -fsSL "https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/Release.key" \
+    | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg  # :contentReference[oaicite:9]{index=9}
 
-  # Add the Kubernetes APT repository
-  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core/stable/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+    # 4. Add the versioned APT source
+    echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] \
+    https://pkgs.k8s.io/core:/stable:/${K8S_VERSION}/deb/ /" \
+    | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-  sudo apt-get update
-  sudo apt-get install -y kubelet kubeadm kubectl
-  sudo apt-mark hold kubelet kubeadm kubectl
+    # 5. Install & pin packages
+    sudo apt-get update
+    sudo apt-get install -y kubelet kubeadm kubectl
+    sudo apt-mark hold kubelet kubeadm kubectl
 
   log "INFO" "Kubernetes installation complete"
 }
