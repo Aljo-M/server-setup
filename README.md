@@ -29,9 +29,12 @@ server-setup/
 ## 0-server-setup (Backup Server)
 
 ### Setup Instructions
-
-1. Clone repository: `git clone https://github.com/Aljo-M/server-setup.git`
-2. Run setup script: `bash 0-server-setup/server-setup.sh`
+```bash
+apt install git
+git clone https://github.com/Aljo-M/server-setup.git
+cd server-setup
+bash 0-server-setup/server-setup.sh
+```
 
 ### server-setup.sh Analysis
 
