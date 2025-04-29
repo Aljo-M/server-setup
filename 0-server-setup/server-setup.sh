@@ -3,7 +3,6 @@
 
 set -euo pipefail
 
-log "INFO" "Server setup started"
 
 # === LOAD CONFIGURATION & UTILITIES ===
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -13,6 +12,8 @@ source "$SCRIPT_DIR/config/variable-loader.sh" "$@"
 source "$SCRIPT_DIR/functions/input-utils.sh"
 source "$SCRIPT_DIR/functions/ask-yes-no.sh"
 source "$SCRIPT_DIR/functions/log-utils.sh"
+
+log "INFO" "Starting full system upgrade"
 
 trap 'handle_error $LINENO' ERR
 
