@@ -1,0 +1,18 @@
+services:
+  ubuntu-server:
+    image: ubuntu:22.04
+    container_name: ubuntu-server
+    restart: no
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/mnt/host
+    command: tail -f /dev/null
+
+    # --- ADD THESE LINES ---
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+
+    # (optional) share the host’s network namespace
+    # network_mode: host
