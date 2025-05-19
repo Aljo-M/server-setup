@@ -5,11 +5,27 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Conditional PROJECT_ROOT setup
+if [ -z "${PROJECT_ROOT+x}" ]; then
+  PROJECT_ROOT="$(realpath "$SCRIPT_DIR/..")"
+  export PROJECT_ROOT
+  readonly PROJECT_ROOT
+fi
+
+# Source sub-scripts
+# source "$PROJECT_ROOT/scripts/subscript.sh"
+
+
+
+
+
 trap 'handle_error $LINENO' ERR
 
 # Determine PROJECT_ROOT (more robust)
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(realpath "$SCRIPT_DIR/..")"
+# PROJECT_ROOT="$(realpath "$SCRIPT_DIR/..")"
 
 # Make sure log-utils.sh is sourced, even if run standalone
 if ! declare -f log_info >/dev/null; then

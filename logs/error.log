@@ -1,0 +1,35 @@
+2025-05-19 12:30:16 [INFO] Loading configuration from /mnt/host/.env
+2025-05-19 12:30:16 [SUCCESS] Project root: /mnt/host
+2025-05-19 12:30:16 [SUCCESS] Starting server-setup.sh at /mnt/host
+2025-05-19 12:30:16 [ERROR] Script 'log-utils.sh', function 'source', line 130: exited with status 0
+2025-05-19 12:30:16 [ERROR] An error occurred in server-setup.sh at line 23
+2025-05-19 12:30:36 [INFO] Loading configuration from /mnt/host/.env
+2025-05-19 12:30:36 [SUCCESS] Project root: /mnt/host
+2025-05-19 12:30:36 [SUCCESS] Starting server-setup.sh at /mnt/host
+2025-05-19 12:30:36 [ERROR] bash: /mnt/host/scripts/01-system-preparation.sh: No such file or directory
+2025-05-19 12:30:36 [ERROR] An error occurred in server-setup.sh at line 23
+2025-05-19 12:37:06 [INFO] Loading configuration from /mnt/host/.env
+2025-05-19 12:37:06 [SUCCESS] Project root: /mnt/host
+2025-05-19 12:37:06 [SUCCESS] Starting server-setup.sh at /mnt/host
+2025-05-19 12:37:06 [ERROR] bash: /mnt/host/scripts/01-system-preparation.sh: No such file or directory
+2025-05-19 12:37:06 [ERROR] An error occurred in server-setup.sh at line 23
+2025-05-19 12:40:51 [INFO] Loading configuration from /mnt/host/.env
+2025-05-19 12:40:51 [SUCCESS] Project root: /mnt/host
+2025-05-19 12:40:51 [SUCCESS] Starting server-setup.sh at /mnt/host
+2025-05-19 12:40:51 [ERROR] bash: /mnt/host/scripts/01-system-preparation.sh: No such file or directory
+2025-05-19 12:40:51 [ERROR] An error occurred in server-setup.sh at line 23
+2025-05-19 12:48:28 [INFO] Loading configuration from /mnt/host/.env
+2025-05-19 12:48:28 [SUCCESS] Project root: /mnt/host
+2025-05-19 12:48:28 [SUCCESS] Starting server-setup.sh at /mnt/host
+2025-05-19 12:48:28 [ERROR] bash: /mnt/host/scripts/01-system-preparation.sh: No such file or directory
+2025-05-19 12:48:28 [ERROR] An error occurred in server-setup.sh at line 23
+2025-05-19 12:48:31 [INFO] Loading configuration from /mnt/host/.env
+2025-05-19 12:48:31 [SUCCESS] Project root: /mnt/host
+2025-05-19 12:48:31 [SUCCESS] Starting server-setup.sh at /mnt/host
+2025-05-19 12:48:31 [ERROR] bash: /mnt/host/scripts/01-system-preparation.sh: No such file or directory
+2025-05-19 12:48:31 [ERROR] An error occurred in server-setup.sh at line 23
+2025-05-19 12:59:50 [INFO] Loading configuration from /mnt/host/.env
+2025-05-19 12:59:50 [SUCCESS] Project root: /mnt/host
+2025-05-19 12:59:50 [SUCCESS] Starting server-setup.sh at /mnt/host
+2025-05-19 12:59:50 [ERROR] bash: /mnt/host/scripts/01-system-preparation.sh: No such file or directory
+2025-05-19 12:59:50 [ERROR] An error occurred in server-setup.sh at line 23

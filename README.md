@@ -21,9 +21,50 @@ The `server-setup.sh` script sources configuration variables from `configs/confi
 
 The setup process is divided into modular scripts located in the `scripts/` directory. Each script handles a specific aspect of the server setup, such as system preparation, user management, SSH hardening, firewall setup, security measures, containerization, backup, and monitoring.
 
-## Logging
+## Logging System
 
-Logging utilities are provided in `logs/log-utils.sh`. Logs are stored in `logs/setup-logs.txt`.
+This project includes a comprehensive logging system implemented in `logs/log-utils.sh` with the following features:
+
+### Key Features
+
+- **Color-coded output**: Distinct colors for different log levels (info=blue, success=green, warning=yellow, error=red)
+- **Timestamps**: All log entries include date/time stamps
+- **Log levels**: Configurable severity filtering (ERROR, WARNING, INFO, SUCCESS)
+- **Error tracing**: Automatic stack trace capture on errors
+- **Log rotation**: Automatic log file rotation at 10MB by default
+- **Syslog integration**: Optional system log forwarding
+
+### Usage
+
+The logging functions are pre-integrated with `server-setup.sh`, but can be used in custom scripts by:
+
+1. Sourcing the library: `source logs/log-utils.sh`
+2. Using the logging functions:
+
+```bash
+log_info "Informational message"
+log_success "Operation succeeded"
+log_warning "Warning message"
+log_error "Error message"
+```
+
+### Configuration
+
+Adjust behavior through environment variables before running scripts:
+
+- `LOG_LEVEL`: Set minimum severity to display (default: SUCCESS)
+- `LOG_FILE`: Custom log file path (default: `logs/setup-logs.txt`)
+- `USE_SYSLOG`: Set to 1 to enable syslog integration
+- `LOG_ROTATE_SIZE`: Change log rotation threshold (default: 10M)
+
+### Error Handling
+
+All scripts automatically trap errors and log detailed diagnostics including:
+
+- Script name and path
+- Function name
+- Line number
+- Full stack trace
 
 ## Documentation
 

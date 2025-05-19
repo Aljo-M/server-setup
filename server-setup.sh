@@ -1,17 +1,21 @@
 #!/usr/bin/env bash
-# Main server setup script: The entry point for setting up the server environment.
+# server-setup.sh - Main server setup script: The entry point for setting up the server environment.
 set -euo pipefail
 
-PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+readonly PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 source "$PROJECT_ROOT/logs/log-utils.sh"
 source "$PROJECT_ROOT/configs/config-loader.sh"
+
+# Now use PROJECT_ROOT
+log_success "Project root: $PROJECT_ROOT"
+
 
 if [ "$EUID" -ne 0 ]; then
   log_error "This script must be run as root (or via sudo). Aborting."
   exit 1
 fi
 
-trap 'handle_error $LINENO' ERR
 
 log_success "Starting server-setup.sh at $PROJECT_ROOT"
 
